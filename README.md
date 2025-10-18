@@ -32,7 +32,6 @@ requirements.txt
 
 
 Install dependencies in git bashh:
-   ```bash
    pip install -r requirements.txt
 
 
