@@ -28,6 +28,7 @@ class ArtificialPancreasSystem:
         # Prevent glucose from dropping below safe minimum
         if self.glucose_level < self.MIN_GLUCOSE:
             self.glucose_level = self.MIN_GLUCOSE
+        return f"Exercise done and the new glucose level is {self.glucose_level}"
 
     def predict_action(self):
         """
@@ -40,12 +41,17 @@ class ArtificialPancreasSystem:
             dose = excess * self.insulin_sensitivity
             self.glucose_level -= dose
             self.total_insulin_delivered += dose
-            return "deliver_insulin", self.glucose_level
+            return f"Glucose level is getting high ({self.glucose_level+dose}), insulin amount of {dose} is needed to drop your Glucose level back to {self.glucose_level}"
 
         elif self.glucose_level < self.target_glucose - self.tolerance:
-            # Too low → warning
-            return "warn_low_glucose", self.glucose_level
-
+            # Too low, warning
+            return f"Glucose level is getting low ({self.glucose_level}), you need to take Carbs of {(self.target_glucose - self.glucose_level)/0.5}"
         else:
-            # Stable → maintain
-            return "maintain", self.glucose_level
+            # Stable, maintain
+            return f"Glucose level is currently {self.glucose_level}, so maintain your  ", self.glucose_level
+        
+ojo_diabetics = ArtificialPancreasSystem(125, 1, 100, 10)
+
+ojo_diabetics.predict_action
+
+print(ojo_diabetics.predict_action())
