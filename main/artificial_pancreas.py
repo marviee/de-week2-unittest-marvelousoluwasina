@@ -52,6 +52,3 @@ class ArtificialPancreasSystem:
         
 ojo_diabetics = ArtificialPancreasSystem(125, 1, 100, 10)
 
-ojo_diabetics.predict_action
-
-print(ojo_diabetics.predict_action())

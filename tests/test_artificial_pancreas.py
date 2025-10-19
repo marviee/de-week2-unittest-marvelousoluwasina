@@ -1,20 +1,20 @@
 import pytest
 from main.artificial_pancreas import ArtificialPancreasSystem
 
-@pytest.fixtures #to avoid repetition of sys object in each test functions 
-def sys():
+@pytest.fixture #to avoid repetition of system object in each test functions 
+def system():
     return ArtificialPancreasSystem(100, 1,100, 10)
-def test_glucose_increases_after_meal():
-    sys.meal(20)  # 20 carbs
-    assert sys.glucose_level > 100
+def test_glucose_increases_after_meal(system):
+    system.meal(20)  # 20 carbs
+    assert system.glucose_level > 100
 
 
-def test_glucose_decreases_after_exercise():
+def test_glucose_decreases_after_exercise(system):
    
-    sys.exercise(30)  # 30 minutes exercise
-    assert sys.glucose_level < 100
+    system.exercise(30)  # 30 minutes exercise
+    assert system.glucose_level < 100
 
 
-def test_glucose_never_below_min():
-    sys.exercise(500)  # huge duration
-    assert sys.glucose_level >= sys.MIN_GLUCOSE
+def test_glucose_never_below_min(system):
+    system.exercise(500)  # huge duration
+    assert system.glucose_level >= system.MIN_GLUCOSE
